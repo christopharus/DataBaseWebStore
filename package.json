@@ -1,0 +1,10 @@
+{
+    "name": "data",
+    "description": "Data_for_WebStore",
+    "authors": "Esdras",
+    "version": "1.0.0",
+    "main": "pathToMain",
+    "dependencies": {
+        "sqlite3": "^4.2.0"
+    }
+}
