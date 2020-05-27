@@ -1,0 +1,13 @@
+Notes:
+
+[√] correct the user colomn account_id to store_id
+[√] Convert the sql database to sqlite database 
+[√] Make an insertion in sqlite database
+[√] Make a selection in sqlite database 
+[√] Make a second insertion in sqlite database 
+[√] Make an insertion in multiple colomn in sqlite database 
+[ ] Learn the promise in javascript
+[ ] Learn the async function javascript
+[ ] Make each part model class
+[ ] Make each class controller 
+[ ] Make database call file 

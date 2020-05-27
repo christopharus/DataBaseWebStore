@@ -6,34 +6,32 @@ var db = new sqlite3.Database('./data.sqlite', (err) => {
     }
     console.log('Connected to the database');
 });
-
+var data;
   function request (req) {
-     return new Promise(function (resolve, reject) {
-        let data=[];
+    return new Promise(function (resolve, reject) {
+        var doto=[];
         db.each(req, function (err, row) {
             if (err)
                 reject(err);
             else
-                data.push(row);
+                resolve(row);
         }, function (err, n) {
             if (err) {
                 reject(err);
             }
             else
-                resolve(data);
+                resolve(n);
         });
     });
 }
+var mydata;
+async function makerequest(){
+ mydata = await request("select * from user "); 
+}
+makerequest();
+console.log(mydata);
 
-request("select * from user ")
-    .then( (response) =>{
-        console.log(response);
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
-
-
+//console.log(data);
 
 db.close((err) => {
     if (err) {
