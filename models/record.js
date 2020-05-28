@@ -1,7 +1,7 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
 let day=new Date();
-let armel = { id: 1,date:day.toLocaleString(),product_id:1,user_id:1}
+let armel = { id: 1,date:day.toLocaleString(), product_id:1 , user_id:1 }
 
 class record_model {
         constructor() {
@@ -10,7 +10,7 @@ class record_model {
                 }
         }
         readAll() {
-                db.each("select * from record ", (res, err) => {
+                db.each("select * from record ",(res, err) => {
                         if (err)
                                 console.log(err);
                         else
@@ -31,8 +31,8 @@ class record_model {
         create(obj) {
                 try {
                         db.serialize(() => {
-                                this.state._stmt = db.prepare("INSERT INTO record (date,product_id,user_id) VALUES (?,?,?)");
-                                this.state._stmt.run(obj.date,obj.product_id,obj.user_id);
+                                this.state._stmt = db.prepare("INSERT INTO record (id , date , product_id , user_id ) VALUES ( ?,? ,? ,? )");
+                                this.state._stmt.run(obj.id , obj.date,obj.product_id,obj.user_id);
                                 this.state._stmt.finalize();
                         })
                 }
