@@ -1,6 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
-let category1 = { id: 3, name: 'anita', lastname: 'soup', phone: '60-58-22-12', password: null , mail: 'chicken@gmail.com' }
+let category1 = { id: 3, name: 'anita' };
 
 class category_model {
         constructor(data) {
@@ -30,8 +30,8 @@ class category_model {
         create(obj) {
                 try {
                         db.serialize(() => {
-                                this.state._stmt = db.prepare("INSERT INTO category (name ,lastname,phone,password,mail,store_id) VALUES (?,?,?,?,?,?)");
-                                this.state._stmt.run(obj.name, obj.lastname, obj.phone, obj.password, obj.mail, obj.store_id);
+                                this.state._stmt = db.prepare("INSERT INTO category (name) VALUES (?)");
+                                this.state._stmt.run(obj.name);
                                 this.state._stmt.finalize();
                         })
                 }
