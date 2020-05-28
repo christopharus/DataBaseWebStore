@@ -1,7 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
-
-let client = { ID: 3, name: 'anita',phone:"41-10-24-11",photo:"string",mail:"nita@gmail.com",mark:"other"}
+let client = { id: 1, name: 'sidnooma',phone:"41-14-24-11",photo:"string",mail:"anita@gmail.com",mark:"other"}
 class customer_model {
         constructor(data) {
                 this.state = {
@@ -39,20 +38,20 @@ class customer_model {
                         console.log("There is an error " + err);
                 }
         }
-        // update(obj) {
-        //         db.serialize(() => {
-        //                 this.state._stmt = db.prepare("UPDATE customer SET name = CASE WHEN ? != NULL THEN ? END WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN customer.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN customer.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN customer.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN customer.mail ELSE ? END  WHERE ID=? ;");
-        //                 console.log(obj.name)
-        //                 try {
-        //                 this.state._stmt.run(obj.name, obj.name, obj.ID);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
-        //                 }
-        //                 catch (err){
-        //                         console.log(err);
-        //                 }
-        //                 this.state._stmt.finalize();
-        //                 console.log("updated ....");
-        //         })
-        // }
+         update(obj) {
+                 db.serialize(() => {
+                         this.state._stmt = db.prepare("UPDATE customer SET name = COALESCE(?, name), phone=COALESCE(?,phone), photo=COALESCE(?, photo ), mail=COALESCE(?, mail),mark=COALESCE(?, mark) WHERE ID= ? ");//  
+                         console.log(obj.name)
+                         try {
+                         this.state._stmt.run(obj.name, obj.phone, obj.photo, obj.mail, obj.mark,obj.id); ;
+                         }
+                         catch (err){
+                                 console.log(err);
+                         }
+                         this.state._stmt.finalize();
+                         console.log("updated ....");
+                 })
+         }
 
         delete(obj) {
                 this.state._stmt = db.prepare("DELETE FROM customer WHERE ID=?");
@@ -60,3 +59,6 @@ class customer_model {
                 console.log("supprimer");
         }
 }
+var patrick=new customer_model();
+patrick.update(client);
+patrick.readAll();

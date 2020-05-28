@@ -3,7 +3,7 @@ var db = new sqlite3.Database('./../data.sqlite');
 
 let d=new Date();
 console.log(d.toLocaleString());
-let _purch = { ID: 3, price:5000,date:d.toLocaleString(),validate:true,discount:0.3,tax:0.03,customer_id:1,user_id:2 }
+let _purch = { id: 3, price:5000,date:d.toLocaleString(),validate:true,discount:0.3,tax:0.03,customer_id:1,user_id:2 }
 class purchase_model {
         constructor() {
                 this.state = {
@@ -46,7 +46,7 @@ class purchase_model {
                         this.state._stmt = db.prepare("UPDATE purchase SET price= COALESCE(?, price) , date=COALESCE(?, date), validate=COALESCE(?, validate),discount=COALESCE(?, discount), tax=COALESCE(?, tax) ,customer_id=COALESCE(?, customer_id), user_id=COALESCE(?, user_id ) WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN purchase.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN purchase.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN purchase.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN purchase.mail ELSE ? END  WHERE ID=? ;");
                          console.log(obj.name)
                          try {
-                        this.state._stmt.run(obj.price, obj.date, obj.validate, obj.discount, obj.tax, obj.customer_id,user_id);
+                        this.state._stmt.run(obj.price, obj.date, obj.validate, obj.discount, obj.tax, obj.customer_id,obj.user_id,obj.id);
                          }
                          catch (err){
                                 console.log(err);

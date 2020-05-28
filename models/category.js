@@ -1,6 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
-let category1 = { id: 3, name: 'anita' };
+let category1 = { id: 3, name: 'cosmetiques' };
 
 class category_model {
         constructor(data) {
@@ -39,20 +39,20 @@ class category_model {
                         console.log("There is an error " + err);
                 }
         }
-        // update(obj) {
-        //         db.serialize(() => {
-        //                 this.state._stmt = db.prepare("UPDATE category SET name = CASE WHEN ? != NULL THEN ? END WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN category.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN category.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN category.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN category.mail ELSE ? END  WHERE ID=? ;");
-        //                 console.log(obj.name)
-        //                 try {
-        //                 this.state._stmt.run(obj.name, obj.name, obj.id;// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
-        //                 }
-        //                 catch (err){
-        //                         console.log(err);
-        //                 }
-        //                 this.state._stmt.finalize();
-        //                 console.log("updated ....");
-        //         })
-        // }
+        update(obj) {
+                db.serialize(() => {
+                         this.state._stmt = db.prepare("UPDATE category SET name =  COALESCE(?, name) WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN category.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN category.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN category.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN category.mail ELSE ? END  WHERE ID=? ;");
+                         console.log(obj.name)
+                         try {;
+                         this.state._stmt.run(obj.name ,obj.id); 
+                         }
+                         catch (err){
+                                 console.log(err);
+                         }
+                         this.state._stmt.finalize();
+                         console.log("updated ....");
+                })
+         }
 
         delete(obj) {
                 this.state._stmt = db.prepare("DELETE FROM category WHERE ID=?");
@@ -60,3 +60,6 @@ class category_model {
                 console.log("supprimer");
         }
 }
+var rayon=new category_model();
+rayon.create(category1);
+rayon.readAll();

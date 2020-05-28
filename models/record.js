@@ -45,7 +45,7 @@ class record_model {
                          this.state._stmt = db.prepare("UPDATE record SET date = COALESCE(?, date),product_id = COALESCE(?, product_id ) ,user_id = COALESCE(?, user_id) WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN record.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN record.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN record.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN record.mail ELSE ? END  WHERE ID=? ;");
                          console.log(obj.name)
                          try {
-                         this.state._stmt.run(obj.date, obj.name, obj.ID);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
+                         this.state._stmt.run(obj.date, obj.name, obj.id);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
                          }
                          catch (err){
                                 console.log(err);
