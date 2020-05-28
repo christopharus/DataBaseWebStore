@@ -1,14 +1,15 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
-let armel = { ID: 3, name: 'anita', lastname: 'soup', phone: '60-58-22-12', password: null , mail: 'chicken@gmail.com' }
-class user_model {
+
+let client = { ID: 3, name: 'anita',phone:"41-10-24-11",photo:"string",mail:"nita@gmail.com",mark:"other"}
+class customer_model {
         constructor(data) {
                 this.state = {
                         _stmt: null
                 }
         }
         readAll() {
-                db.each("select * from user ", (res, err) => {
+                db.each("select * from customer ", (res, err) => {
                         if (err)
                                 console.log(err);
                         else
@@ -17,7 +18,7 @@ class user_model {
         }
         read(obj) {
 
-                db.get("SELECT * FROM user WHERE ID =" + obj.ID, (res, err) => {
+                db.get("SELECT * FROM customer WHERE ID =" + obj.ID, (res, err) => {
                         if (err)
                                 console.log(err);
                         else if (res !== null)
@@ -29,8 +30,8 @@ class user_model {
         create(obj) {
                 try {
                         db.serialize(() => {
-                                this.state._stmt = db.prepare("INSERT INTO user (name ,lastname,phone,password,mail,store_id) VALUES (?,?,?,?,?,?)");
-                                this.state._stmt.run(obj.name, obj.lastname, obj.phone, obj.password, obj.mail, obj.store_id);
+                                this.state._stmt = db.prepare("INSERT INTO customer (name ,phone,photo,mail,mark) VALUES (?,?,?,?,?)");
+                                this.state._stmt.run(obj.name, obj.phone, obj.photo, obj.mail, obj.mark);
                                 this.state._stmt.finalize();
                         })
                 }
@@ -38,38 +39,24 @@ class user_model {
                         console.log("There is an error " + err);
                 }
         }
-        update(obj) {
-                db.serialize(() => {
-                        this.state._stmt = db.prepare("UPDATE user SET name = CASE WHEN ? != NULL THEN ? END WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN user.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN user.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN user.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN user.mail ELSE ? END  WHERE ID=? ;");
-                        console.log(obj.name)
-                        try {
-                        this.state._stmt.run(obj.name, obj.name, obj.ID);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
-                        }
-                        catch (err){
-                                console.log(err);
-                        }
-                        this.state._stmt.finalize();
-                        console.log("updated ....");
-                })
-        }
+        // update(obj) {
+        //         db.serialize(() => {
+        //                 this.state._stmt = db.prepare("UPDATE customer SET name = CASE WHEN ? != NULL THEN ? END WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN customer.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN customer.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN customer.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN customer.mail ELSE ? END  WHERE ID=? ;");
+        //                 console.log(obj.name)
+        //                 try {
+        //                 this.state._stmt.run(obj.name, obj.name, obj.ID);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
+        //                 }
+        //                 catch (err){
+        //                         console.log(err);
+        //                 }
+        //                 this.state._stmt.finalize();
+        //                 console.log("updated ....");
+        //         })
+        // }
 
         delete(obj) {
-                this.state._stmt = db.prepare("DELETE FROM user WHERE ID=?");
+                this.state._stmt = db.prepare("DELETE FROM customer WHERE ID=?");
                 this.state._stmt.run(obj.ID);
                 console.log("supprimer");
         }
 }
-var annie = new user_model;
-//annie.readAll();
-//annie.read({ ID: 3});
-//annie.create({ name: 'annie', lastname: 'nejolbe', phone: "24-44-78-17", password: 'lapingeant', mail: 'anni@gmail.com', store_id: 3 });
-//annie.update();
-//annie.update(armel);
-//annie.read({ ID: 3});
-// annie.readAll();
-// annie.delete({ID : 2});
-// annie.readAll();
-//annie.readAll();
-annie.readAll();
-annie.update(armel);
-annie.readAll();

@@ -1,5 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
+
 let d=new Date();
 console.log(d.toLocaleString());
 let _purch = { ID: 3, price:5000,date:d.toLocaleString(),validate:true,discount:0.3,tax:0.03,customer_id:1,user_id:2 }
@@ -60,17 +61,3 @@ class purchase_model {
                 console.log("supprimer");
         }
 }
-// var annie = new purchase_model;
-// //annie.readAll();
-// //annie.read({ ID: 3});
-// //annie.create({ name: 'annie', lastname: 'nejolbe', phone: "24-44-78-17", password: 'lapingeant', mail: 'anni@gmail.com', store_id: 3 });
-// //annie.update();
-// //annie.update(armel);
-// //annie.read({ ID: 3});
-// // annie.readAll();
-// // annie.delete({ID : 2});
-// // annie.readAll();
-// //annie.readAll();
-// annie.readAll();
-// annie.update(armel);
-// annie.readAll();

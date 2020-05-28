@@ -59,18 +59,3 @@ class product_model {
                 console.log("supprimer");
         }
 }
-
-var milk = new product_model;
-//milk.readAll();
-//milk.read({ ID: 3});
-//milk.create({ name: 'milk', lastname: 'nejolbe', phone: "24-44-78-17", password: 'lapingeant', mail: 'anni@gmail.com', store_id: 3 });
-//milk.update();
-//milk.update(armel);
-//milk.read({ ID: 3});
-// milk.readAll();
-// milk.delete({ID : 2});
-// milk.readAll();
-//milk.readAll();
-milk.readAll();
-milk.update(armel);
-milk.readAll();
