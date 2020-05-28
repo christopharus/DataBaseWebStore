@@ -1,7 +1,6 @@
 var sqlite3 = require("sqlite3").verbose();
 var db = new sqlite3.Database('./../data.sqlite');
-
-let store1 = { id: 1 , name: 'slabyz', mail: 'chicken@gmail.com' };
+let store1 = { id: 1 , name: 'saly', mail: 'pinti@gmail.com' };
 class store_model {
         constructor() {
                 this.state = {
@@ -41,10 +40,10 @@ class store_model {
         }
         update(obj) {
                 db.serialize(() => {
-                        this.state._stmt = db.prepare("UPDATE store SET name = CASE WHEN ? != NULL THEN ? END WHERE ID= ? ");// , lastname = CASE WHEN (? = NULL) THEN store.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN store.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN store.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN store.mail ELSE ? END  WHERE ID=? ;");
+                        this.state._stmt = db.prepare("UPDATE store SET name = COALESCE(?, name) , mail=COALESCE(?,mail) WHERE ID=? ");// , lastname = CASE WHEN (? = NULL) THEN store.lastname ELSE ? END  , phone= CASE WHEN (? = NULL) THEN store.phone ELSE ? END , password = CASE WHEN (? = NULL) THEN store.password ELSE ? END,mail = CASE WHEN (? = NULL) THEN store.mail ELSE ? END  WHERE ID=? ;");
                         console.log(obj.name)
                         try {
-                        this.state._stmt.run(obj.name, obj.name, obj.id);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
+                        this.state._stmt.run(obj.name, obj.mail, obj.id);// obj.lastname, obj.lastname , obj.phone, obj.phone, obj.password, obj.password, obj.mail, obj.mail, obj.ID);
                         }
                         catch (err){
                                 console.log(err);
@@ -60,3 +59,6 @@ class store_model {
                 console.log("supprimer");
         }
 }
+var bangba=new store_model();
+bangba.delete(store1);
+bangba.readAll();
